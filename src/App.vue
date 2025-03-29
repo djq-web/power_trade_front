@@ -1,9 +1,11 @@
 <template>
-   <div>2222</div>
+  <router-view></router-view>
 </template>
 <script setup lang="ts">
-import { computed} from 'vue'
+import { ref, watch, onMounted } from 'vue';
+onMounted(() => {
+  console.log('App.vue onMounted');
+});
 </script>
 
-<style>
-</style>
+<style></style>
