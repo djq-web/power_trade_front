@@ -1,9 +1,5 @@
 <!-- src/components/Message.vue -->
 <template>
-  <!-- <div v-if="visible" class="message" :class="typeClass">
-    <span>{{ message }}</span>
-    <button @click="close">X</button>
-  </div> -->
   <v-alert
   v-if="visible"
   closable

@@ -1,9 +1,12 @@
 <template>
-   <div>2222</div>
+   <div>注册</div>
 </template>
+
 <script setup lang="ts">
-import { computed} from 'vue'
+
 </script>
 
-<style>
+<style lang="scss" scoped>
+
+
 </style>

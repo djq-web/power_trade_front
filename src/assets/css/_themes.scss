@@ -1,0 +1,16 @@
+@import './common.scss';
+$themes: (
+  light: (
+    bg-color: $yellow,
+    font-color: $black,
+    link-color: $blue,
+    border-color: $yellow,
+    bg-opacity-color: $lightYellow,
+  ),
+  dark: (
+    bg-color: $darkGreen,
+    font-color: $black,
+    link-color: $blue,
+    border-color: $darkGreen,
+    bg-opacity-color: $lightGreen,
+  ))
