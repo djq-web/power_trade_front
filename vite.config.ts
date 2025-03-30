@@ -1,11 +1,12 @@
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueDevTools from 'vite-plugin-vue-devtools';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(), vueDevTools()],
+  // plugins: [vue(), vueDevTools()],
+  plugins: [vue()],
   resolve: {
     alias: {
       /** @ 符号指向 src 目录 */
@@ -42,11 +43,11 @@ export default defineConfig({
     process.env.NODE_ENV == 'development'
       ? undefined
       : {
-        /** 打包时移除 console.log */
-        pure: ['console.log'],
-        /** 打包时移除 debugger */
-        drop: ['debugger'],
-        /** 打包时移除所有注释 */
-        legalComments: 'none',
-      },
-})
+          /** 打包时移除 console.log */
+          pure: ['console.log'],
+          /** 打包时移除 debugger */
+          drop: ['debugger'],
+          /** 打包时移除所有注释 */
+          legalComments: 'none',
+        },
+});

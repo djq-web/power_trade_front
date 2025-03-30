@@ -9,12 +9,8 @@ const routes = [
     },
   },
   {
-    path: '/',
-    redirect: '/home',
-  },
-  {
     name: 'home',
-    path: '/home',
+    path: '/',
     component: () => import('@/view/home/home.vue'),
     children: [
       {
@@ -23,7 +19,6 @@ const routes = [
         component: () => import('@/view/TradingCalendarView.vue'),
         meta: {
           title: '交易日历',
-          keepAlive: true,
         },
       },
       {
@@ -35,28 +30,28 @@ const routes = [
             path: 'trading-desk',
             name: 'TradingDesk',
             component: () => import('@/view/long-term/TradingDeskView.vue'),
-            meta: {
-              title: '交易工作台',
-            },
           },
           {
             path: 'analysis',
             name: 'LongTermAnalysis',
             component: () => import('@/view/long-term/AnalysisView.vue'),
-            meta: {
-              title: '交易工作台',
-            },
           },
         ],
+        meta: {
+          title: '交易工作台',
+        },
       },
     ],
+    meta: {
+      title: '首页',
+    },
   },
   {
     name: 'login',
     path: '/login',
     component: () => import('@/view/user/login/login.vue'),
     meta: {
-      title: '登录',
+      title: '注册',
     },
   },
   {

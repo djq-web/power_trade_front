@@ -1,41 +1,38 @@
 <template>
   <v-card>
     <v-layout>
-      <v-app-bar color="primary" prominent>
-        <v-app-bar-nav-icon
-          variant="text"
-          @click.stop="drawer = !drawer"
-        ></v-app-bar-nav-icon>
-
-        <v-toolbar-title>My files</v-toolbar-title>
-
-        <v-spacer></v-spacer>
-
-        <template v-if="$vuetify.display.mdAndUp">
-          <v-btn icon="mdi-magnify" variant="text"></v-btn>
-
-          <v-btn icon="mdi-filter" variant="text"></v-btn>
-        </template>
-
-        <v-btn icon="mdi-dots-vertical" variant="text"></v-btn>
-      </v-app-bar>
-
       <v-navigation-drawer
+        theme="blur"
         v-model="drawer"
-        :location="$vuetify.display.mobile ? 'bottom' : undefined"
-        temporary
+        :rail="rail"
+        permanent
+        @click="rail = false"
       >
-        <v-list :items="items"></v-list>
+        <v-list density="compact" nav>
+          <v-list-item
+            v-for="(item, index) in navItems"
+            :key="index"
+            :value="item.value"
+            :title="item.title"
+            :size="24"
+            :prepend-icon="getNavIcon(item.value)"
+            @click="handleNavClick(item)"
+            :class="currentNav === item.value ? 'active-nav-item' : ''"
+          >
+            <v-tooltip
+              v-if="rail"
+              activator="parent"
+              location="right"
+              :text="getNavLabel(item.value)"
+            ></v-tooltip>
+          </v-list-item>
+        </v-list>
       </v-navigation-drawer>
-
-      <v-main style="height: 500px">
+      <v-main @click="rail = true">
         <v-container fluid class="content-container pa-6">
           <router-view v-slot="{ Component }">
             <v-fade-transition mode="out-in">
-              <keep-alive>
-                <component :is="Component" v-if="route.meta.keepAlive" />
-              </keep-alive>
-              <component :is="Component" v-if="!route.meta.keepAlive" />
+              <component :is="Component" />
             </v-fade-transition>
           </router-view>
         </v-container>
@@ -44,34 +41,94 @@
   </v-card>
 </template>
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
-const route = useRoute();
-const items = [
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { NavKey, INavItem } from '@/types/home';
+const router = useRouter();
+const navItems: INavItem[] = [
   {
-    title: 'Foo',
-    value: 'foo',
+    title: '总览',
+    value: 'dashboard',
   },
   {
-    title: 'Bar',
-    value: 'bar',
+    title: '交易日历',
+    value: 'trading-calendar',
+    path: '/trading-calendar',
   },
   {
-    title: 'Fizz',
-    value: 'fizz',
+    title: '中长期交易模块',
+    value: 'long-term',
+    path: '/long-term',
   },
   {
-    title: 'Buzz',
-    value: 'buzz',
+    title: '现货交易模块',
+    value: 'spot',
+  },
+  {
+    title: '系统设置',
+    value: 'settings',
   },
 ];
 
-const drawer = ref(false);
-const group = ref(null);
+// 获取导航图标
+const getNavIcon = (key: NavKey): string => {
+  const iconMap: Record<NavKey, string> = {
+    dashboard: 'mdi-chart-areaspline',
+    'trading-calendar': 'mdi-calendar',
+    'long-term': 'mdi-polymer',
+    spot: 'mdi-blur',
+    settings: 'mdi-cog',
+  };
+  return iconMap[key];
+};
+// 获取导航标签（简短文字）
+const getNavLabel = (key: NavKey): string => {
+  const labelMap: Record<NavKey, string> = {
+    dashboard: '首页',
+    'trading-calendar': '日历',
+    'long-term': '中长期',
+    spot: '现货',
+    settings: '设置',
+  };
+  return labelMap[key];
+};
 
-watch(group, () => {
-  drawer.value = false;
-});
+const handleNavClick = (item: INavItem) => {
+  currentNav.value = item.value;
+  if (item.path) {
+    router.push(item.path);
+    rail.value = true;
+  } else {
+    router.push('/');
+  }
+};
+
+const drawer = ref(true);
+const rail = ref(true);
+
+// 当前选中的导航项
+const currentNav = ref('dashboard');
 </script>
 
-<style></style>
+<style>
+.v-card {
+  height: 100%;
+}
+.v-layout {
+  height: 100%;
+}
+.v-navigation-drawer .v-list {
+  margin-top: 24px;
+}
+.v-list .v-list-item--nav:not(:only-child) {
+  margin-bottom: 10px;
+}
+.v-list-item--variant-text .v-list-item__overlay {
+  background-color: transparent;
+}
+.active-nav-item {
+  color: #315efb !important;
+  background-color: rgba(49, 94, 251, 0.1) !important;
+  position: relative;
+}
+</style>

@@ -5,5 +5,7 @@
 </template>
 
 <script setup lang="ts">
-// Parent component for long-term views
-</script> 
+import { useRouter } from 'vue-router';
+const router = useRouter();
+router.push({ name: 'LongTermAnalysis' });
+</script>
