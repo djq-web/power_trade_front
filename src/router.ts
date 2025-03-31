@@ -9,9 +9,9 @@ const routes = [
     },
   },
   {
-    name: 'home',
+    name: 'layout',
     path: '/',
-    component: () => import('@/view/home/home.vue'),
+    component: () => import('@/view/layout/layout.vue'),
     children: [
       {
         name: 'TradingCalendar',
@@ -43,7 +43,7 @@ const routes = [
       },
     ],
     meta: {
-      title: '首页',
+      title: '能源交易管理系统',
     },
   },
   {

@@ -8,6 +8,16 @@
         permanent
         @click="rail = false"
       >
+      <v-list-item
+          :prepend-avatar="LogoPng"
+          title="能源交易系统"
+          nav
+          class="system-item"
+        >
+        </v-list-item>
+
+        <v-divider></v-divider>
+
         <v-list density="compact" nav>
           <v-list-item
             v-for="(item, index) in navItems"
@@ -44,6 +54,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { NavKey, INavItem } from '@/types/home';
+import LogoPng from '@/assets/img/logo.png';
 const router = useRouter();
 const navItems: INavItem[] = [
   {
@@ -127,8 +138,16 @@ const currentNav = ref('dashboard');
   background-color: transparent;
 }
 .active-nav-item {
-  color: #315efb !important;
-  background-color: rgba(49, 94, 251, 0.1) !important;
+  color: rgb(64, 158, 255) !important;
+  background-color: rgb(48, 64, 86, 1) !important;
   position: relative;
+}
+.v-navigation-drawer__content {
+  background-color:  rgba(48, 65, 86, 0.9);
+  color: #fff;
+}
+.system-item .v-list-item-title {
+  font-weight: bold;
+  font-size: 14px;
 }
 </style>
