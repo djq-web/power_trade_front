@@ -8,7 +8,7 @@
         permanent
         @click="rail = false"
       >
-      <v-list-item
+        <v-list-item
           :prepend-avatar="LogoPng"
           title="能源交易系统"
           nav
@@ -38,8 +38,9 @@
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
-      <v-main @click="rail = true">
-        <v-container fluid class="content-container pa-6">
+      <v-main>
+        <navbar @toggleClick="toggleSideBar" :opened="rail"></navbar>
+        <v-container fluid class="content-container">
           <router-view v-slot="{ Component }">
             <v-fade-transition mode="out-in">
               <component :is="Component" />
@@ -55,7 +56,10 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { NavKey, INavItem } from '@/types/home';
 import LogoPng from '@/assets/img/logo.png';
+import Navbar from '@/components/Navbar.vue';
+import { useCommonStore } from '@/store/modules/common';
 const router = useRouter();
+const commonStore = useCommonStore();
 const navItems: INavItem[] = [
   {
     title: '总览',
@@ -105,6 +109,7 @@ const getNavLabel = (key: NavKey): string => {
 };
 
 const handleNavClick = (item: INavItem) => {
+  commonStore.setPageText(getNavLabel(item.value));
   currentNav.value = item.value;
   if (item.path) {
     router.push(item.path);
@@ -119,6 +124,10 @@ const rail = ref(true);
 
 // 当前选中的导航项
 const currentNav = ref('dashboard');
+
+const toggleSideBar = () => {
+  rail.value = !rail.value;
+};
 </script>
 
 <style>
@@ -143,11 +152,14 @@ const currentNav = ref('dashboard');
   position: relative;
 }
 .v-navigation-drawer__content {
-  background-color:  rgba(48, 65, 86, 0.9);
+  background-color: rgba(48, 65, 86, 0.9);
   color: #fff;
 }
 .system-item .v-list-item-title {
   font-weight: bold;
   font-size: 14px;
+}
+.content-container {
+  height: calc(100% - 50px);
 }
 </style>

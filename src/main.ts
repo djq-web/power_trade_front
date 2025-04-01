@@ -1,4 +1,3 @@
-import './assets/global.css';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
@@ -9,6 +8,7 @@ import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/styles';
+import './assets/global.css';
 const lightTheme = {
   dark: false,
   colors: {

@@ -2,12 +2,6 @@
   font-size: 12px;
 }
 
-html {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-}
-
 @font-face {
   font-family: 'PingFang-SC';
   src: url('./fonts/pingfang-sc.ttf');
@@ -15,13 +9,16 @@ html {
   font-style: normal;
 }
 
-body {
+html,
+body,
+#app {
   width: 100%;
   height: 100%;
-  background-color: #f7f8f9;
-  /* font-family: 'PingFang-SC'; */
+  color: #44566c;
+  overflow-y: auto;
+  tab-size: unset;
+  background-color: #ffffff;
   font-family:
-    -apple-system,
     system-ui,
     Segoe UI,
     Roboto,
@@ -38,16 +35,7 @@ body {
   /* font-family: PingFang SC, Arial, Helvetica, sans-serif; */
 }
 
-#app {
-  width: 100%;
-  height: 100%;
-  color: #44566c;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
+
 
 body,
 p,
@@ -70,6 +58,7 @@ textarea,
 form {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 input::-webkit-outer-spin-button,
@@ -79,4 +68,17 @@ input::-webkit-inner-spin-button {
 
 input[type='number'] {
   -moz-appearance: textfield;
+}
+
+.settingContainer {
+  position: relative;
+  top: 10px;
+}
+
+.settingContainer .v-list-item {
+  min-height: 32px;
+}
+
+.settingContainer .v-list-item .v-list-item-title {
+  color: #44566c;
 }
