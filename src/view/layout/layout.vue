@@ -15,9 +15,7 @@
           class="system-item"
         >
         </v-list-item>
-
         <v-divider></v-divider>
-
         <v-list density="compact" nav>
           <v-list-item
             v-for="(item, index) in navItems"
@@ -54,7 +52,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { NavKey, INavItem } from '@/types/home';
+import { NavKey, INavItem } from '@/types/layout';
 import LogoPng from '@/assets/img/logo.png';
 import Navbar from '@/components/Navbar.vue';
 import { useCommonStore } from '@/store/modules/common';
@@ -83,6 +81,11 @@ const navItems: INavItem[] = [
     title: '系统设置',
     value: 'settings',
   },
+  {
+    title: '用户管理',
+    value: 'user',
+    path: '/userManagement',
+  },
 ];
 
 // 获取导航图标
@@ -93,6 +96,7 @@ const getNavIcon = (key: NavKey): string => {
     'long-term': 'mdi-polymer',
     spot: 'mdi-blur',
     settings: 'mdi-cog',
+    user: 'mdi-account-wrench-outline',
   };
   return iconMap[key];
 };
@@ -104,6 +108,7 @@ const getNavLabel = (key: NavKey): string => {
     'long-term': '中长期',
     spot: '现货',
     settings: '设置',
+    user: '用户',
   };
   return labelMap[key];
 };
@@ -155,10 +160,18 @@ const toggleSideBar = () => {
   background-color: rgba(48, 65, 86, 0.9);
   color: #fff;
 }
+.system-item.v-list-item--nav {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
 .system-item .v-list-item-title {
   font-weight: bold;
   font-size: 14px;
 }
+.v-list .v-list-item .v-list-item-title {
+  font-size: 12px;
+}
+
 .content-container {
   height: calc(100% - 50px);
 }

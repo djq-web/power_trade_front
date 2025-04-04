@@ -3,9 +3,11 @@ export type NavKey =
   | 'trading-calendar'
   | 'long-term'
   | 'spot'
-  | 'settings';
+  | 'settings'
+  | 'user';
 
 export type INavItem = {
-  title: string; value: NavKey,
-  path?: string
-}
+  title: string;
+  value: NavKey;
+  path?: string;
+};

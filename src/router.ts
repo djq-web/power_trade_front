@@ -41,6 +41,14 @@ const routes = [
           title: '交易工作台',
         },
       },
+      {
+        name: 'userManagement',
+        path: '/userManagement',
+        component: () => import('@/view/user/userManagement.vue'),
+        meta: {
+          title: '用户管理',
+        },
+      },
     ],
     meta: {
       title: '能源交易管理系统',
