@@ -7,7 +7,10 @@
         prepend-inner-icon="mdi-magnify"
         variant="outlined"
         hide-details
+        height="48"
         single-line
+        style="width: 360px"
+        class="searchBox"
       ></v-text-field>
     </template>
     <v-divider></v-divider>
@@ -92,4 +95,26 @@ const sureDelete = () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.searchBox {
+  .v-field__field {
+    height: 32px;
+    .v-field__input {
+      height: 32px;
+      row-gap: 0;
+      min-height: unset;
+      padding: 4px 0;
+    }
+  }
+  .v-field--variant-outlined.v-field--focused {
+    .v-field__outline {
+      border-width: 1px;
+      --v-field-border-width: 1px;
+    }
+    .v-field__outline__start,
+    .v-field__outline__end {
+      border-color: #409eff;
+    }
+  }
+}
+</style>
