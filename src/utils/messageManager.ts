@@ -1,51 +1,38 @@
-// src/utils/messageManager.ts
-import { createApp, h } from 'vue'
-import Message from '../components/Message.vue'
-
-let messageInstance: any = null
-
-const createMessage = (options: any) => {
-  const { message, type, duration } = options
-
-  if (messageInstance) {
-    messageInstance.unmount()
-  }
-
-  const container = document.createElement('div')
-  document.body.appendChild(container)
-
-  const app = createApp({
+//@ts-nocheck
+import { createApp, h } from 'vue';
+import Message from '../components/Message.vue';
+const createMessage = ({ message, type, duration, showClose }) => {
+  const messageApp = createApp({
     render() {
       return h(Message, {
         message,
         type,
         duration,
+        showClose,
         onClose: () => {
-          app.unmount()
-          container.remove()
+          messageApp.unmount();
+          document.body.removeChild(div);
         },
-      })
+      });
     },
-  })
+  });
 
-  messageInstance = app.mount(container)
-}
+  const div = document.createElement('div');
+  document.body.appendChild(div);
+  messageApp.mount(div);
+};
 
-export const ElMessage = {
-  success(options: string | { message: string; duration?: number }) {
-    const config = typeof options === 'string' ? { message: options } : options
-    createMessage({ ...config, type: 'success' })
-  },
-  warning(options: string | { message: string; duration?: number }) {
-    const config = typeof options === 'string' ? { message: options } : options
-    createMessage({ ...config, type: 'warning' })
-  },
-  error(options: string | { message: string; duration?: number }) {
-    const config = typeof options === 'string' ? { message: options } : options
-    createMessage({ ...config, type: 'error' })
-  },
-  info(options: string | { message: string; duration?: number }) {
-    const config = typeof options === 'string' ? { message: options } : options
-    createMessage({ ...config, type: 'info' })
-  },
-}
+const types = ['success', 'warning', 'info', 'error'];
+const ElMessage: any = {};
+types.forEach((type) => {
+  ElMessage[type] = (options) => {
+    if (typeof options === 'string') {
+      options = {
+        message: options,
+      };
+    }
+    return createMessage({ ...options, type });
+  };
+});
+
+export default ElMessage;
